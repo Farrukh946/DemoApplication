@@ -1,6 +1,7 @@
 package com.farrukhworkstation.demoapplication.fragments;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,8 +10,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.farrukhworkstation.demoapplication.DemoApplication;
+import com.farrukhworkstation.demoapplication.MainActivity;
 import com.farrukhworkstation.demoapplication.R;
 import com.farrukhworkstation.demoapplication.Utilities.Constants;
 import com.farrukhworkstation.demoapplication.Utilities.DividerItemDecoration;
@@ -36,6 +39,9 @@ import retrofit.Retrofit;
 public class HomeFragment extends Fragment {
     @BindView(R.id.recycler_view)
     RecyclerView RV;
+
+    @BindView(R.id.encryption)
+    Button encryption;
     View mainView;
     private Unbinder unbinder;
 
@@ -54,6 +60,12 @@ public class HomeFragment extends Fragment {
         unbinder = ButterKnife.bind(this, mainView);
         ((DemoApplication) getActivity().getApplication()).getmyNetworkRequestComponent().inject(this);
         getData();
+        encryption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().startActivity(new Intent(getActivity(), MainActivity.class));
+            }
+        });
         return mainView;
     }
 
@@ -69,6 +81,7 @@ public class HomeFragment extends Fragment {
                     Log.i("ERROR", String.valueOf(response.code()));
                 }
             }
+
             @Override
             public void onFailure(Throwable t) {
                 Log.i("ERROR", String.valueOf(t.getMessage().toString()));

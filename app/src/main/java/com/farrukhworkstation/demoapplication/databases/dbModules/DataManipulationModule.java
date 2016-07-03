@@ -14,7 +14,6 @@ import retrofit.Response;
 
 @Module
 public class DataManipulationModule {
-    @Singleton
     @Provides
     public DataManipulation dataManipulations() {
         return new DataManipulation();
